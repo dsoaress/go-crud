@@ -6,33 +6,33 @@ import (
 	"go-crud/src/configuration/rest_err"
 )
 
-func NewUserDomain(name, email, password string, age int8) *UserDomain {
-	return &UserDomain{
-		Name:     name,
-		Email:    email,
-		Age:      age,
-		Password: password,
+func NewUserDomain(name, email, password string, age int8) UserDomainInterface {
+	return &userDomain{
+		name,
+		email,
+		age,
+		password,
 	}
 }
 
-type UserDomain struct {
-	Name     string
-	Email    string
-	Age      int8
-	Password string
+type userDomain struct {
+	name     string
+	email    string
+	age      int8
+	password string
 }
 
-func (ud *UserDomain) EncryptPassword() {
+func (ud *userDomain) encryptPassword() {
 	hash := md5.New()
 	defer hash.Reset()
-	hash.Write([]byte(ud.Password))
-	ud.Password = hex.EncodeToString(hash.Sum(nil))
+	hash.Write([]byte(ud.password))
+	ud.password = hex.EncodeToString(hash.Sum(nil))
 }
 
 type UserDomainInterface interface {
 	CreateUser() *rest_err.RestErr
-	GetUserByID(id string) (*UserDomain, *rest_err.RestErr)
-	GetUserByEmail(email string) (*UserDomain, *rest_err.RestErr)
+	GetUserByID(id string) (*userDomain, *rest_err.RestErr)
+	GetUserByEmail(email string) (*userDomain, *rest_err.RestErr)
 	UpdateUser(id string) *rest_err.RestErr
 	DeleteUser(id string) *rest_err.RestErr
 }

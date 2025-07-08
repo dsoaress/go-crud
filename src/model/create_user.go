@@ -2,7 +2,7 @@ package model
 
 import "go-crud/src/configuration/rest_err"
 
-func (ud *UserDomain) CreateUser() *rest_err.RestErr {
-	ud.EncryptPassword()
+func (ud *userDomain) CreateUser() *rest_err.RestErr {
+	ud.encryptPassword()
 	return nil
 }
