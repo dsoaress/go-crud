@@ -6,7 +6,9 @@ import (
 	"go-crud/src/configuration/validation"
 	"go-crud/src/controller/model/request"
 	"go-crud/src/model"
+	"go-crud/src/view"
 	"go.uber.org/zap"
+	"net/http"
 )
 
 func (uc *userControllerInterface) CreateUser(c *gin.Context) {
@@ -29,4 +31,6 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		c.JSON(err.Code, err)
 		return
 	}
+
+	c.JSON(http.StatusCreated, view.ConvertDomainToResponse(domain))
 }
